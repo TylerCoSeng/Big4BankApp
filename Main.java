@@ -8,7 +8,7 @@ public class Main {
         System.out.println("Welcome to The Big 4 Bank CLI");
 
         while (true) {
-            System.out.println("\n1. Create Customer Account\n2. Create Employee Account\n3. Login as Customer\n4. Login as Employee\n5. Exit\nChoose an option: ");
+            System.out.println("\n1. Create Customer Account\n2. Create Employee Account\n3. Login as Customer\n4. Login as Employee\n5. Reset Password\n6. Exit\nChoose an option: ");
             int option = scanner.nextInt();
             scanner.nextLine();
 
@@ -62,6 +62,21 @@ public class Main {
                 }
 
             } else if (option == 5) {
+                System.out.print("Enter username to reset password: ");
+                String username = scanner.nextLine();
+                Customer customer = manager.findCustomer(username);
+                if (customer != null) {
+                    customer.resetPassword(scanner);
+                } else {
+                    Employee employee = manager.findEmployee(username);
+                    if (employee != null) {
+                        employee.resetPassword(scanner);
+                    } else {
+                        System.out.println("Account not found.");
+                    }
+                }
+
+            } else if (option == 6) {
                 System.out.println("Exiting...");
                 break;
             }

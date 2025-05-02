@@ -71,4 +71,17 @@ public class Account {
             return false;
         }
     }
+
+    public void resetPassword(Scanner scanner) {
+        System.out.print("To reset your password, enter your username to verify your identity: ");
+        String input = scanner.nextLine();
+        if (input.equals(this.username)) {
+            System.out.print("Enter your new password: ");
+            String newPassword = scanner.nextLine();
+            this.password = newPassword;
+            System.out.println("Password has been reset successfully.");
+        } else {
+            System.out.println("Verification failed. Username does not match.");
+        }
+    }
 }
