@@ -87,7 +87,7 @@ public class Main {
 
     private static void handleCustomerMenu(Scanner scanner, Customer customer, AccountManager manager) {
         while (true) {
-            System.out.println("\n1. Create Bank Account\n2. Deposit\n3. Withdraw\n4. View Balance\n5. View History\n6. View All Accounts\n7. Delete Account\n8. Logout\nChoose an option:");
+            System.out.println("\n1. Create Bank Account\n2. Deposit\n3. Withdraw\n4. View Balance\n5. View History\n6. View All Accounts\n7. Transfer Between Own Accounts\n8. Transfer to Another Customer\n9. Delete Account\n10. Logout\nChoose an option:");
             int choice = scanner.nextInt();
             scanner.nextLine();
 
@@ -139,10 +139,35 @@ public class Main {
                 customer.viewAllAccounts();
             }
             else if (choice == 7) {
+                System.out.print("Enter FROM account ID: ");
+                String fromId = scanner.nextLine();
+                System.out.print("Enter TO account ID: ");
+                String toId = scanner.nextLine();
+                System.out.print("Enter amount to transfer: $");
+                double amount = scanner.nextDouble();
+                customer.transferBetweenAccounts(fromId, toId, amount);
+            }
+            else if (choice == 8) {
+                System.out.print("Enter recipient's username: ");
+                String recipientUsername = scanner.nextLine();
+                Customer recipient = manager.findCustomer(recipientUsername);
+                if (recipient != null) {
+                    System.out.print("Enter your FROM account ID: ");
+                    String fromId = scanner.nextLine();
+                    System.out.print("Enter recipient's TO account ID: ");
+                    String toId = scanner.nextLine();
+                    System.out.print("Enter amount to transfer: $");
+                    double amount = scanner.nextDouble();
+                    customer.transferToOtherCustomer(recipient, fromId, toId, amount);
+                } else {
+                    System.out.println("Recipient not found.");
+                }
+            }
+            else if (choice == 9) {
                 manager.deleteCustomerAccount(customer.getUsername());
                 break;
             }
-            else if (choice == 8) {
+            else if (choice == 10) {
                 System.out.println("Logging out...");
                 break;
             }
@@ -151,7 +176,7 @@ public class Main {
 
     private static void handleEmployeeMenu(Scanner scanner, Employee employee, AccountManager manager) {
         while (true) {
-            System.out.print("\n1. View Customer Info\n2. Logout\nChoose an option: ");
+            System.out.print("\n1. View Customer Info\n2. View Bank Analytics\n3. Logout\nChoose an option: ");
             int choice = scanner.nextInt();
             scanner.nextLine();
 
@@ -165,6 +190,8 @@ public class Main {
                     System.out.println("Customer not found.");
                 }
             } else if (choice == 2) {
+                employee.viewAnalytics(manager.getAllCustomers());
+            } else if (choice == 3) {
                 System.out.println("Logging out...");
                 break;
             }

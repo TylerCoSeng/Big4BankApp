@@ -67,4 +67,40 @@ public class Customer {
     public Set<String> getAccountIds() {
         return accounts.keySet();
     }
+
+    public void transferBetweenAccounts(String fromId, String toId, double amount) {
+        Account from = accounts.get(fromId);
+        Account to = accounts.get(toId);
+        if (from == null || to == null) {
+            System.out.println("One or both account IDs not found.");
+            return;
+        }
+        if (from.sendTransfer(amount)) {
+            to.receiveTransfer(amount);
+            from.getTransactionHistory().add("Transferred $" + amount + " to account " + toId);
+            to.getTransactionHistory().add("Received $" + amount + " from account " + fromId);
+            System.out.println("Transferred $" + amount + " from " + fromId + " to " + toId);
+        } else {
+            System.out.println("Transfer failed due to insufficient funds or invalid amount.");
+        }
+    }
+
+    public void transferToOtherCustomer(Customer recipient, String fromId, String toId, double amount) {
+        Account from = accounts.get(fromId);
+        Account to = recipient.getAccount(toId);
+
+        if (from == null || to == null) {
+            System.out.println("Invalid source or destination account.");
+            return;
+        }
+
+        if (from.sendTransfer(amount)) {
+            to.receiveTransfer(amount);
+            from.getTransactionHistory().add("Transferred $" + amount + " to " + recipient.getUsername() + "'s account " + toId);
+            to.getTransactionHistory().add("Received $" + amount + " from " + this.username + "'s account " + fromId);
+            System.out.println("Transferred $" + amount + " to user " + recipient.getUsername() + " (Account ID: " + toId + ")");
+        } else {
+            System.out.println("Transfer failed due to insufficient funds or invalid amount.");
+        }
+    }
 }

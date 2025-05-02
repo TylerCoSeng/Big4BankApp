@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class Employee {
     private final String username;
@@ -33,5 +33,32 @@ public class Employee {
     public void viewCustomerDetails(Customer customer) {
         System.out.println("Customer: " + customer.getUsername());
         customer.viewAllAccounts();
+    }
+
+    public void viewAnalytics(Collection<Customer> customers) {
+        Customer topCustomer = null;
+        double maxBalance = -1;
+        double totalBankFunds = 0;
+
+        for (Customer c : customers) {
+            double total = 0;
+            for (String accId : c.getAccountIds()) {
+                Account acc = c.getAccount(accId);
+                total += acc.getBalance();
+            }
+            totalBankFunds += total;
+            if (total > maxBalance) {
+                maxBalance = total;
+                topCustomer = c;
+            }
+        }
+
+        System.out.println("\n=== Bank Analytics ===");
+        System.out.println("Total Bank Holdings: $" + totalBankFunds);
+        if (topCustomer != null) {
+            System.out.println("Customer with Highest Total Balance: " + topCustomer.getUsername() + " ($" + maxBalance + ")");
+        } else {
+            System.out.println("No customers found.");
+        }
     }
 }

@@ -45,4 +45,8 @@ public class AccountManager {
     public void resetLoginAttempts(String username) {
         loginAttempts.put(username, 0);
     }
+
+    public Collection<Customer> getAllCustomers() {
+        return customers.values();
+    }
 }
