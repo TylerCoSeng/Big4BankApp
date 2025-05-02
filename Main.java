@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -87,18 +87,62 @@ public class Main {
 
     private static void handleCustomerMenu(Scanner scanner, Customer customer, AccountManager manager) {
         while (true) {
-            System.out.println("\n1. Deposit\n2. Withdraw\n3. View Balance\n4. View History\n5. Delete Account\n6. Logout\nChoose an option:");
+            System.out.println("\n1. Create Bank Account\n2. Deposit\n3. Withdraw\n4. View Balance\n5. View History\n6. View All Accounts\n7. Delete Account\n8. Logout\nChoose an option:");
             int choice = scanner.nextInt();
+            scanner.nextLine();
 
-            if (choice == 1) customer.deposit(scanner);
-            else if (choice == 2) customer.withdraw(scanner);
-            else if (choice == 3) customer.viewBalance();
-            else if (choice == 4) customer.showTransactionHistory();
+            if (choice == 1) {
+                System.out.print("Enter new account ID: ");
+                String accountId = scanner.nextLine();
+                customer.createAccount(accountId);
+            }
+            else if (choice == 2) {
+                System.out.print("Enter account ID to deposit into: ");
+                String id = scanner.nextLine();
+                Account acc = customer.getAccount(id);
+                if (acc != null) {
+                    System.out.print("Enter amount to deposit: $");
+                    double amount = scanner.nextDouble();
+                    acc.deposit(amount);
+                } else {
+                    System.out.println("Account not found.");
+                }
+            }
+            else if (choice == 3) {
+                System.out.print("Enter account ID to withdraw from: ");
+                String id = scanner.nextLine();
+                Account acc = customer.getAccount(id);
+                if (acc != null) {
+                    System.out.print("Enter amount to withdraw: $");
+                    double amount = scanner.nextDouble();
+                    acc.withdraw(amount);
+                } else {
+                    System.out.println("Account not found.");
+                }
+            }
+            else if (choice == 4) {
+                System.out.print("Enter account ID to view balance: ");
+                String id = scanner.nextLine();
+                Account acc = customer.getAccount(id);
+                if (acc != null) {
+                    System.out.println("Balance for account " + id + ": $" + acc.getBalance());
+                } else {
+                    System.out.println("Account not found.");
+                }
+            }
             else if (choice == 5) {
+                System.out.print("Enter account ID to view transaction history: ");
+                String id = scanner.nextLine();
+                customer.viewAccountHistory(id);
+            }
+            else if (choice == 6) {
+                customer.viewAllAccounts();
+            }
+            else if (choice == 7) {
                 manager.deleteCustomerAccount(customer.getUsername());
                 break;
             }
-            else if (choice == 6) {
+            else if (choice == 8) {
                 System.out.println("Logging out...");
                 break;
             }

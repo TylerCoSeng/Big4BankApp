@@ -2,23 +2,17 @@ import java.util.*;
 
 public class Account {
     private double balance;
-    private String username;
-    private String password;
-    private List<String> transactionHistory;
+    private final String accountId;
+    private final List<String> transactionHistory;
 
-    public Account(String username, String password) {
-        this.username = username;
-        this.password = password;
+    public Account(String accountId) {
+        this.accountId = accountId;
         this.balance = 0;
         this.transactionHistory = new ArrayList<>();
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public boolean isAuthorized(String inputUsername, String inputPassword) {
-        return this.username.equals(inputUsername) && this.password.equals(inputPassword);
+    public String getAccountId() {
+        return accountId;
     }
 
     public double getBalance() {
@@ -29,10 +23,7 @@ public class Account {
         return transactionHistory;
     }
 
-    public void deposit(Scanner scanner) {
-        System.out.print("Enter amount to deposit: $");
-        double amount = scanner.nextDouble();
-
+    public void deposit(double amount) {
         if (amount > 0) {
             balance += amount;
             transactionHistory.add("Deposited: $" + amount);
@@ -43,10 +34,7 @@ public class Account {
         }
     }
 
-    public void withdraw(Scanner scanner) {
-        System.out.print("Enter amount to withdraw: $");
-        double amount = scanner.nextDouble();
-
+    public void withdraw(double amount) {
         if (amount > 0 && amount <= balance) {
             balance -= amount;
             transactionHistory.add("Withdrew: $" + amount);
@@ -57,12 +45,12 @@ public class Account {
         }
     }
 
-    protected void receiveTransfer(double amount) {
+    public void receiveTransfer(double amount) {
         balance += amount;
         transactionHistory.add("Received: $" + amount);
     }
 
-    protected boolean sendTransfer(double amount) {
+    public boolean sendTransfer(double amount) {
         if (amount > 0 && balance >= amount) {
             balance -= amount;
             transactionHistory.add("Sent: $" + amount);
@@ -72,16 +60,10 @@ public class Account {
         }
     }
 
-    public void resetPassword(Scanner scanner) {
-        System.out.print("To reset your password, enter your username to verify your identity: ");
-        String input = scanner.nextLine();
-        if (input.equals(this.username)) {
-            System.out.print("Enter your new password: ");
-            String newPassword = scanner.nextLine();
-            this.password = newPassword;
-            System.out.println("Password has been reset successfully.");
-        } else {
-            System.out.println("Verification failed. Username does not match.");
+    public void showTransactionHistory() {
+        System.out.println("Transaction History for Account ID: " + accountId);
+        for (String log : transactionHistory) {
+            System.out.println(" - " + log);
         }
     }
 }
