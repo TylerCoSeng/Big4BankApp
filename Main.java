@@ -12,77 +12,86 @@ public class Main {
             int option = scanner.nextInt();
             scanner.nextLine();
 
-            if (option == 1) {
-                System.out.print("Enter username: ");
-                String username = scanner.nextLine();
-                System.out.print("Enter password: ");
-                String password = scanner.nextLine();
-                manager.createCustomerAccount(new Customer(username, password));
+            switch (option) {
+                case 1:
+                    System.out.print("Enter username: ");
+                    String custUsername = scanner.nextLine();
+                    System.out.print("Enter password: ");
+                    String custPassword = scanner.nextLine();
+                    manager.createCustomerAccount(new Customer(custUsername, custPassword));
+                    break;
 
-            } else if (option == 2) {
-                System.out.print("Enter username: ");
-                String username = scanner.nextLine();
-                System.out.print("Enter password: ");
-                String password = scanner.nextLine();
-                manager.createEmployeeAccount(new Employee(username, password));
+                case 2:
+                    System.out.print("Enter username: ");
+                    String empUsername = scanner.nextLine();
+                    System.out.print("Enter password: ");
+                    String empPassword = scanner.nextLine();
+                    manager.createEmployeeAccount(new Employee(empUsername, empPassword));
+                    break;
 
-            } else if (option == 3) {
-                System.out.print("Username: ");
-                String username = scanner.nextLine();
-                System.out.print("Password: ");
-                String password = scanner.nextLine();
+                case 3:
+                    System.out.print("Username: ");
+                    String loginCustUsername = scanner.nextLine();
+                    System.out.print("Password: ");
+                    String loginCustPassword = scanner.nextLine();
 
-                if (manager.isLockedOut(username)) {
-                    System.out.println("Account locked due to too many failed login attempts.");
-                    continue;
-                }
-
-                Customer customer = manager.findCustomer(username);
-                if (customer != null && customer.isAuthorized(username, password)) {
-                    manager.resetLoginAttempts(username);
-                    System.out.println("\nLogin successful.");
-                    handleCustomerMenu(scanner, customer, manager);
-                } else {
-                    System.out.println("Invalid login.");
-                    manager.recordFailedLogin(username);
-                }
-
-            } else if (option == 4) {
-                System.out.print("Username: ");
-                String username = scanner.nextLine();
-                System.out.print("Password: ");
-                String password = scanner.nextLine();
-
-                Employee employee = manager.findEmployee(username);
-                if (employee != null && employee.isAuthorized(username, password)) {
-                    System.out.println("\nEmployee login successful.");
-                    handleEmployeeMenu(scanner, employee, manager);
-                } else {
-                    System.out.println("Invalid login.");
-                }
-
-            } else if (option == 5) {
-                System.out.print("Enter username to reset password: ");
-                String username = scanner.nextLine();
-                Customer customer = manager.findCustomer(username);
-                if (customer != null) {
-                    customer.resetPassword(scanner);
-                } else {
-                    Employee employee = manager.findEmployee(username);
-                    if (employee != null) {
-                        employee.resetPassword(scanner);
-                    } else {
-                        System.out.println("Account not found.");
+                    if (manager.isLockedOut(loginCustUsername)) {
+                        System.out.println("Account locked due to too many failed login attempts.");
+                        break;
                     }
-                }
 
-            } else if (option == 6) {
-                System.out.println("Exiting...");
-                break;
+                    Customer customer = manager.findCustomer(loginCustUsername);
+                    if (customer != null && customer.isAuthorized(loginCustUsername, loginCustPassword)) {
+                        manager.resetLoginAttempts(loginCustUsername);
+                        System.out.println("\nLogin successful.");
+                        handleCustomerMenu(scanner, customer, manager);
+                    } else {
+                        System.out.println("Invalid login.");
+                        manager.recordFailedLogin(loginCustUsername);
+                    }
+                    break;
+
+                case 4:
+                    System.out.print("Username: ");
+                    String loginEmpUsername = scanner.nextLine();
+                    System.out.print("Password: ");
+                    String loginEmpPassword = scanner.nextLine();
+
+                    Employee employee = manager.findEmployee(loginEmpUsername);
+                    if (employee != null && employee.isAuthorized(loginEmpUsername, loginEmpPassword)) {
+                        System.out.println("\nEmployee login successful.");
+                        handleEmployeeMenu(scanner, employee, manager);
+                    } else {
+                        System.out.println("Invalid login.");
+                    }
+                    break;
+
+                case 5:
+                    System.out.print("Enter username to reset password: ");
+                    String resetUsername = scanner.nextLine();
+                    Customer resetCustomer = manager.findCustomer(resetUsername);
+                    if (resetCustomer != null) {
+                        resetCustomer.resetPassword(scanner);
+                    } else {
+                        Employee resetEmployee = manager.findEmployee(resetUsername);
+                        if (resetEmployee != null) {
+                            resetEmployee.resetPassword(scanner);
+                        } else {
+                            System.out.println("Account not found.");
+                        }
+                    }
+                    break;
+
+                case 6:
+                    System.out.println("Exiting...");
+                    return;
+
+                default:
+                    System.out.println("Invalid option. Please try again.");
+                    break;
             }
         }
 
-        scanner.close();
     }
 
     private static void handleCustomerMenu(Scanner scanner, Customer customer, AccountManager manager) {
