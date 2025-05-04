@@ -9,6 +9,8 @@ public class AccountManager {
         customers = new HashMap<>();
         employees = new HashMap<>();
         loginAttempts = new HashMap<>();
+        Employee admin = new Employee("admin", "admin");
+        employees.put("admin", admin);
     }
 
     public void createCustomerAccount(Customer customer) {
