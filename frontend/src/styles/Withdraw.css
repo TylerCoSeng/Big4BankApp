@@ -1,0 +1,39 @@
+/* styles/Withdraw.css */
+
+.withdraw-container {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 25px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f2f2f2;
+  }
+  
+  .withdraw-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .withdraw-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border: 1px solid #999;
+  }
+  
+  .withdraw-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #dc3545;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .withdraw-container button:hover {
+    background-color: #c82333;
+  }
+  

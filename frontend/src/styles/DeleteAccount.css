@@ -1,0 +1,39 @@
+/* styles/DeleteAccount.css */
+
+.delete-account-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff3f3;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .delete-account-container h2 {
+    text-align: center;
+    color: #d9534f;
+    margin-bottom: 20px;
+  }
+  
+  .delete-account-container p {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #555;
+  }
+  
+  .delete-account-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #d9534f;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .delete-account-container button:hover {
+    background-color: #c9302c;
+  }
+  
