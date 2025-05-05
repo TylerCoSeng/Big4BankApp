@@ -1,0 +1,79 @@
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  font-family: 'Arial', sans-serif;
+}
+
+.bank-card {
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 400px;
+  border: 1px solid #e0e0e0;
+}
+
+.bank-logo {
+  width: 80px;
+  margin-bottom: 20px;
+}
+
+.bank-title {
+  color: #2c3e50;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.bank-subtitle {
+  color: #7f8c8d;
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.bank-button {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  text-align: center;
+}
+
+.bank-button.primary {
+  background-color: #3498db;
+  color: white;
+}
+
+.bank-button.primary:hover {
+  background-color: #2980b9;
+}
+
+.bank-button {
+  background-color: #ecf0f1;
+  color: #2c3e50;
+}
+
+.bank-button:hover {
+  background-color: #d5dbdb;
+}
+
+.bank-button.exit {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.bank-button.exit:hover {
+  background-color: #c0392b;
+}
